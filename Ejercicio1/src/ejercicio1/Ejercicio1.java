@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  */
 public class Ejercicio1 {
     
-     private int contador = -1, tope = 4;
+     private int contador = -1, tope = 22;
      private Datos alumnos[] = new Datos[tope];
      private ArrayList<Integer> numbers = new ArrayList<>(tope);
      
