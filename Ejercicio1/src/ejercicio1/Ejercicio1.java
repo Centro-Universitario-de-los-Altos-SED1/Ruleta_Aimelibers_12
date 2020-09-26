@@ -3,38 +3,93 @@ Arreglo de Objetos
  */
 package ejercicio1;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+
+
 
 
 
 /**
  *
- * @author Athziri
+ * @author Aimelibers
  */
 public class Ejercicio1 {
     
-     private int contador = 0, tope = 22;
+     private int contador = -1, tope = 4;
      private Datos alumnos[] = new Datos[tope];
-     Random random = new Random();//Variable para 
-    
-    public void elegir_al_azar(){
+     private ArrayList<Integer> numbers = new ArrayList<>(tope);
+     
+     
+        /**
+     * Método para cargar el Archivo con la información de la tabla
+     * @param archivo File
+     * @return booleano, falso= hubo un error, true= cargado correctamente
+     */
+    protected boolean cargarArchivo(File archivo){
         
-        List<Integer> numbers = new ArrayList<>(tope);
-            for (int i=1;i<tope;i++){
-                numbers.add(i);
-            }
-
-        while (tope==22){
-            if(numbers.size()>=1){
-            int randomIndex = random.nextInt(numbers.size());
-             int num_lista=numbers.get(randomIndex);
-            
+        /**JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         
-    }
+        int resultado = fc.showSaveDialog(this);
+        if (resultado == JFileChooser.CANCEL_OPTION){
+            return;
+            * 
         }
-        
-        return num_lista;
+        File archivo = fc.getSelectedFile(); //A la variable archivo se le asigna el archivo seleccionado
+        **/
+        int contador_carga=0;
+        try { //Por si hay errores no se detenga el programa
+            FileReader fr = new FileReader(archivo); 
+            BufferedReader bf = new BufferedReader(fr); //Cargar todo en memoria
+            String linea;
+            linea = bf.readLine(); //Cada línea se asigna a la cadena
+            String[] lista = new String [3]; //Arreglo para cargar cada línea de la tabla
+            while (linea!=null){ //Repetir hasta que las filas sean nulas
+                StringTokenizer st = new StringTokenizer(linea, ","); //Porque cada columna está dividida por coma
+                 lista[0]= st.nextToken();
+                lista[1]= st.nextToken();
+                
+                alumnos[contador_carga].setNombre(lista[0]);
+		alumnos[contador_carga].setNumeroDeLista(Integer.parseInt(lista[1]));
+		alumnos[contador_carga].setControl(false);
+		contador_carga++;
+                linea = bf.readLine();
+                
+            }
+            bf.close();
+            return true;
+        } catch (Exception e) { //Si hubo errores manda mensaje
+            return false; 
+        }
     }
+    
+      public int elegir_al_azar(){
+        if(contador==tope){
+            Collections.shuffle(numbers);
+            contador=-1;
+        }
+        contador++;
+        return alumnos[numbers.get(contador)].numeroDeLista;
+    }
+    
+    /**
+     * PONER PRIMERO EN EL MAIN
+     * Método para inicializar la lista de números al azar
+     */
+    public void inicializarArrayList(){
+        for (int i=1;i<tope;i++){
+                numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+    }    
+    
+    
+    
     
     
    /**
@@ -69,6 +124,8 @@ public class Ejercicio1 {
         }//Cerrar ciclo for
         return b;
     }
+        
+   
     
     
    
