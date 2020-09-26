@@ -19,7 +19,21 @@ public class Ejercicio1 {
     
     public void elegir_al_azar(){
         
-        int randomIndex = random.nextInt(tope);
+        List<Integer> numbers = new ArrayList<>(tope);
+            for (int i=1;i<tope;i++){
+                numbers.add(i);
+            }
+
+        while (tope==22){
+            if(numbers.size()>=1){
+            int randomIndex = random.nextInt(numbers.size());
+             int num_lista=numbers.get(randomIndex);
+            
+        
+    }
+        }
+        
+        return num_lista;
     }
     
     
