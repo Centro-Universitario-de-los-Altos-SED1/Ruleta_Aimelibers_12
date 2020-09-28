@@ -69,11 +69,19 @@ public class Ejercicio1 {
     }
     
       public int elegir_al_azar(){
+        while(alumnos[numbers.get(contador)].isControl()==true){
+              contador++;
         if(contador==tope){
             Collections.shuffle(numbers);
-            contador=-1;
+            contador=0;
+            for(int i=0;i<tope;i++){
+                alumnos[i].setControl(false);
+            }
         }
-        contador++;
+        
+          }
+          alumnos[numbers.get(contador)].setControl(true);
+        
         return alumnos[numbers.get(contador)].numeroDeLista;
     }
     
